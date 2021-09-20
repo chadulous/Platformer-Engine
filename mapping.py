@@ -1,6 +1,7 @@
 import pygame
 import os
 import time
+import sys
 from player import Player
 from tiles import Tile, Coin
 maps = os.listdir('maps')
@@ -83,7 +84,8 @@ class Level:
     def nextlevel(self):
         if self.level + 1 == len(levels):
             print('Good Job, You Beat The Game!')
-            exit()
+            pygame.exit()
+            sys.exit()
         else:
             self.level += 1
             self.setup_level(levels[self.level])
