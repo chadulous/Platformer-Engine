@@ -5,5 +5,4 @@ maps/*
 *.TTF
 build.ps1
 Maria.spec
-dist.zip
 build.py
