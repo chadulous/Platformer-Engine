@@ -56,6 +56,8 @@ class Level:
         else:
             self.world_shift = 0
             player.speed = self.pspeed
+        if player.rect.centery > 2000:
+            self.setup_level(levels[self.level])
     def horizontal_movement_collision(self):
         player = self.player.sprite
         player.rect.x += player.direction.x * player.speed
@@ -83,8 +85,16 @@ class Level:
             player.jumpable = player.direction.y == 0
     def nextlevel(self):
         if self.level + 1 == len(levels):
+            self.coinstr = 'Good  Job ,  You  Beat  The  Game!'
+            self.coinsurf = self.font.render(self.coinstr,False,(255,255,255))
+            x, y = screen_width / 2, screen_height / 2
+            self.coinrect = self.coinsurf.get_rect(center=(x, y))
+            self.display_surface.blit(self.coinsurf, self.coinrect)
+            pygame.display.flip()
+            pygame.event.pump()
+            pygame.time.delay(4 * 1000)
             print('Good Job, You Beat The Game!')
-            pygame.exit()
+            pygame.quit()
             sys.exit()
         else:
             self.level += 1
@@ -93,19 +103,19 @@ class Level:
         if self.updates == 0:
             self.setup_level(levels[0])
             self.pspeed = self.player.sprite.speed
+        if self.player.sprite.coins == self.amntcoins:
+            self.nextlevel()
+        self.coinstr = str(self.player.sprite.coins) if self.player.sprite.coins != self.amntcoins else 'You Win!'
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
         self.coins.update(self.world_shift)
         self.coins.draw(self.display_surface)
         self.player.update()
         self.player.draw(self.display_surface)
-        coinstr = str(self.player.sprite.coins) if self.player.sprite.coins != self.amntcoins else 'You Win!'
-        self.coinsurf = self.font.render(coinstr,False,(255,255,255))
+        self.coinsurf = self.font.render(self.coinstr,False,(255,255,255))
         self.coinrect = self.coinsurf.get_rect(topleft = (20,20))
         self.display_surface.blit(self.coinsurf, self.coinrect)
         self.horizontal_movement_collision()
         self.vertical_movement_collision()
         self.scroll_x()
-        if self.player.sprite.coins == self.amntcoins:
-            self.nextlevel()
         self.updates += 1
