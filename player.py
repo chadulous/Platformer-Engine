@@ -15,13 +15,13 @@ class Player(pygame.sprite.Sprite):
         self.win = False
     def get_input(self):
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_RIGHT]:
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
             self.direction.x = 1
-        elif keys[pygame.K_LEFT]:
+        elif keys[pygame.K_LEFT] or keys[pygame.K_a]:
             self.direction.x = -1
         else:
             self.direction.x = 0
-        if keys[pygame.K_SPACE] or keys[pygame.K_UP]:
+        if keys[pygame.K_SPACE] or keys[pygame.K_UP] or keys[pygame.K_w]:
             if self.jumpable:
                 self.jump()
     def apply_gravity(self):

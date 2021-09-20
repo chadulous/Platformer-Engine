@@ -4,7 +4,7 @@ import time
 import sys
 from pypresence import Presence
 from player import Player
-from tiles import Tile, Coin
+from tiles import Tile, Coin, Wall
 client_id = "889554469694623815"
 RPC = Presence(client_id)
 RPC.connect()
@@ -42,6 +42,9 @@ class Level:
                 elif cell == 'C':
                     coin = Coin((x,y), tile_size)
                     self.coins.add(coin)
+                elif cell == 'W':
+                    tile = Wall((x,y), tile_size)
+                    self.tiles.add(tile)
                 elif cell == ' ':
                     pass
                 else:
@@ -61,7 +64,7 @@ class Level:
         else:
             self.world_shift = 0
             player.speed = self.pspeed
-        if player.rect.centery > 2000:
+        if player.rect.centery > screen_height + tile_size:
             self.setup_level(levels[self.level])
     def horizontal_movement_collision(self):
         player = self.player.sprite
@@ -90,7 +93,7 @@ class Level:
             player.jumpable = player.direction.y == 0
     def nextlevel(self):
         if self.level + 1 == len(levels):
-            self.coinstr = 'Good  Job ,  You  Beat  The  Game!'
+            self.coinstr = 'Good  Job,  You  Beat  The  Game!'
             self.coinsurf = self.font.render(self.coinstr,False,(255,255,255))
             x, y = screen_width / 2, screen_height / 2
             self.coinrect = self.coinsurf.get_rect(center=(x, y))
