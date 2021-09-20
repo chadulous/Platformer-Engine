@@ -2,8 +2,13 @@ import pygame
 import os
 import time
 import sys
+from pypresence import Presence
 from player import Player
 from tiles import Tile, Coin
+client_id = "889554469694623815"
+RPC = Presence(client_id)
+RPC.connect()
+RPC.update(state="Playing a Mario clone", details='Level: 1')
 maps = os.listdir('maps')
 levels = list()
 for level in maps:
@@ -92,6 +97,7 @@ class Level:
             self.display_surface.blit(self.coinsurf, self.coinrect)
             pygame.display.flip()
             pygame.event.pump()
+            RPC.update(state="Playing a Mario clone", details=f'Level: End Screen')
             pygame.time.delay(4 * 1000)
             print('Good Job, You Beat The Game!')
             pygame.quit()
@@ -99,6 +105,7 @@ class Level:
         else:
             self.level += 1
             self.setup_level(levels[self.level])
+            RPC.update(state="Playing a Mario clone", details=f'Level: {self.level+1}')
     def __call__(self):
         if self.updates == 0:
             self.setup_level(levels[0])

@@ -1,3 +1,4 @@
+import time
 import pygame, sys
 from mapping import *
 from tiles import Tile
