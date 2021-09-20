@@ -1,7 +1,7 @@
-build/*
-dist/*
+build
+dist
 __pycache__
-maps/*
+maps
 *.TTF
 build.ps1
 Maria.spec
