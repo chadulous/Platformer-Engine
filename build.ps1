@@ -4,4 +4,4 @@ Compress-Archive "dist/Maria" "dist.zip" -Force
 git add .
 git commit -am "auto commit"
 git push
-gh release $ver 
+gh release create $ver 'dist.zip#Windows (Windows only for now)'

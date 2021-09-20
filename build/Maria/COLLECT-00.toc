@@ -313,7 +313,7 @@
   ('setuptools-58.0.4.dist-info\\RECORD',
    'c:\\users\\redra\\appdata\\roaming\\python\\python39\\site-packages\\setuptools-58.0.4.dist-info\\RECORD',
    'DATA'),
-  ('maps\\2.map', 'D:\\Projects\\unnamed\\game\\maps\\2.map', 'DATA'),
-  ('BAHNSCHRIFT.TTF', 'D:\\Projects\\unnamed\\game\\BAHNSCHRIFT.TTF', 'DATA'),
   ('maps\\3.map', 'D:\\Projects\\unnamed\\game\\maps\\3.map', 'DATA'),
-  ('maps\\1.map', 'D:\\Projects\\unnamed\\game\\maps\\1.map', 'DATA')],)
+  ('maps\\1.map', 'D:\\Projects\\unnamed\\game\\maps\\1.map', 'DATA'),
+  ('BAHNSCHRIFT.TTF', 'D:\\Projects\\unnamed\\game\\BAHNSCHRIFT.TTF', 'DATA'),
+  ('maps\\2.map', 'D:\\Projects\\unnamed\\game\\maps\\2.map', 'DATA')],)
