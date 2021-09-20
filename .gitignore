@@ -2,7 +2,4 @@ build
 dist
 __pycache__
 maps
-BAHNSCHRIFT.TTF
-build.ps1
 Maria.spec
-build.py

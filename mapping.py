@@ -8,7 +8,7 @@ from tiles import Tile, Coin, Wall
 client_id = "889554469694623815"
 RPC = Presence(client_id)
 RPC.connect()
-RPC.update(state="Playing a Mario clone", details='Level: 1')
+RPC.update(state="Playing a Platformer", details='Level: 1')
 maps = os.listdir('maps')
 levels = list()
 for level in maps:
@@ -23,6 +23,7 @@ class Level:
         self.world_shift = 0
         self.updates = 0
         self.amntcoins = 0
+        self.collected = 0
         self.font = pygame.font.Font('BAHNSCHRIFT.TTF', 32)
         self.level = 0
     def setup_level(self, layout):
@@ -79,6 +80,7 @@ class Level:
             if coin.rect.colliderect(player.rect):
                 coin.kill()
                 player.coins += 1
+                self.collected += 1
     def vertical_movement_collision(self):
         player = self.player.sprite
         player.apply_gravity()
@@ -93,14 +95,16 @@ class Level:
             player.jumpable = player.direction.y == 0
     def nextlevel(self):
         if self.level + 1 == len(levels):
-            self.coinstr = 'Good  Job,  You  Beat  The  Game!'
-            self.coinsurf = self.font.render(self.coinstr,False,(255,255,255))
-            x, y = screen_width / 2, screen_height / 2
-            self.coinrect = self.coinsurf.get_rect(center=(x, y))
-            self.display_surface.blit(self.coinsurf, self.coinrect)
-            pygame.display.flip()
-            pygame.event.pump()
-            RPC.update(state="Playing a Mario clone", details=f'Level: End Screen')
+            RPC.update(state="Playing a Platformer", details=f'Level: End Screen')
+            for coin in range(0,self.collected):
+                self.coinstr = f'Good  Job,  You  Beat  The  Game!, You Got: {coin} coins'
+                self.coinsurf = self.font.render(self.coinstr,False,(255,255,255))
+                x, y = screen_width / 2, screen_height / 2
+                self.coinrect = self.coinsurf.get_rect(center=(x, y))
+                self.display_surface.blit(self.coinsurf, self.coinrect)
+                pygame.display.flip()
+                pygame.event.pump()
+                pygame.time.delay(0.1 * 1000)
             pygame.time.delay(4 * 1000)
             print('Good Job, You Beat The Game!')
             pygame.quit()
@@ -108,7 +112,7 @@ class Level:
         else:
             self.level += 1
             self.setup_level(levels[self.level])
-            RPC.update(state="Playing a Mario clone", details=f'Level: {self.level+1}')
+            RPC.update(state="Playing a Platformer", details=f'Level: {self.level+1}')
     def __call__(self):
         if self.updates == 0:
             self.setup_level(levels[0])
