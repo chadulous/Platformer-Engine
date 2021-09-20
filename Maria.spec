@@ -4,10 +4,10 @@
 block_cipher = None
 
 
-a = Analysis(['D:/Projects/unnamed/game/main.py'],
+a = Analysis(['main.py'],
              pathex=['D:\\Projects\\unnamed\\game'],
              binaries=[],
-             datas=[('D:/Projects/unnamed/game/maps', 'maps/'), ('D:/Projects/unnamed/game/BAHNSCHRIFT.TTF', '.')],
+             datas=[('maps', 'maps/'), ('BAHNSCHRIFT.TTF', '.')],
              hiddenimports=[],
              hookspath=[],
              hooksconfig={},
