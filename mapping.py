@@ -24,7 +24,7 @@ class Level:
         self.updates = 0
         self.amntcoins = 0
         self.collected = 0
-        self.font = pygame.font.Font('BAHNSCHRIFT.TTF', 32)
+        self.font = pygame.font.Font('font.ttf', 32)
         self.level = 0
     def setup_level(self, layout):
         self.tiles = pygame.sprite.Group()
@@ -96,16 +96,14 @@ class Level:
     def nextlevel(self):
         if self.level + 1 == len(levels):
             RPC.update(state="Playing a Platformer", details=f'Level: End Screen')
-            for coin in range(0,self.collected):
-                self.coinstr = f'Good  Job,  You  Beat  The  Game!, You Got: {coin} coins'
-                self.coinsurf = self.font.render(self.coinstr,False,(255,255,255))
-                x, y = screen_width / 2, screen_height / 2
-                self.coinrect = self.coinsurf.get_rect(center=(x, y))
-                self.display_surface.blit(self.coinsurf, self.coinrect)
-                pygame.display.flip()
-                pygame.event.pump()
-                pygame.time.delay(0.1 * 1000)
-            pygame.time.delay(4 * 1000)
+            self.coinstr = f'Good  Job,  You  Beat  The  Game!'
+            self.coinsurf = self.font.render(self.coinstr,False,(255,255,255))
+            x, y = screen_width / 2, screen_height / 2
+            self.coinrect = self.coinsurf.get_rect(center=(x, y))
+            self.display_surface.blit(self.coinsurf, self.coinrect)
+            pygame.display.flip()
+            pygame.event.pump()
+            pygame.time.delay(5 * 1000)
             print('Good Job, You Beat The Game!')
             pygame.quit()
             sys.exit()
@@ -119,7 +117,7 @@ class Level:
             self.pspeed = self.player.sprite.speed
         if self.player.sprite.coins == self.amntcoins:
             self.nextlevel()
-        self.coinstr = str(self.player.sprite.coins) if self.player.sprite.coins != self.amntcoins else 'You Win!'
+        self.coinstr = f"{str(self.player.sprite.coins)}" if self.player.sprite.coins != self.amntcoins else 'You Win!'
         self.tiles.update(self.world_shift)
         self.tiles.draw(self.display_surface)
         self.coins.update(self.world_shift)

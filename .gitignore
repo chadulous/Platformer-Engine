@@ -1,4 +1,4 @@
 build
 dist
 __pycache__
-Maria.spec
+*.spec
